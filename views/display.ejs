@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1><%=result[0].id%></h1>
+
+   <table>
+     <tr>
+       <th>problem</th>
+       <th>problem name</th>
+       <th>status</th>
+       <th>time</th>
+       <th>memory</th>
+     </tr>
+      <%for(var i=0;i<result.length;i++){%>
+      <tr>
+        <td><%=result[i].id%></td>
+        <td><%=result[i].problem.name%></td>
+        <td><%=result[i].verdict%></td>
+        <td><%=result[i].timeConsumedMillis%></td>
+        <td><%=result[i].memoryConsumedBytes%></td>
+
+
+      </tr><%}%>
+    </table>
+  </body>
+</html>
