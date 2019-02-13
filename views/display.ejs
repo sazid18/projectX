@@ -3,28 +3,75 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-  </head>
-  <body>
-    <h1><%=result[0].id%></h1>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-   <table>
-     <tr>
-       <th>problem</th>
-       <th>problem name</th>
-       <th>status</th>
-       <th>time</th>
-       <th>memory</th>
-     </tr>
+    <!-- <script type="text/javascript" src="../app.js"></script> -->
+
+  </head>
+
+  <body >
+      <div class="container">
+    <table class="table table-striped">
+     <thead>
+        <tr>
+          <th>solutionID</th>
+          <th>problem name</th>
+          <th>status</th>
+          <th>time</th>
+          <th>memory</th>
+        </tr>
+      </thead>
+      <tbody>
       <%for(var i=0;i<result.length;i++){%>
       <tr>
-        <td><%=result[i].id%></td>
-        <td><%=result[i].problem.name%></td>
-        <td><%=result[i].verdict%></td>
-        <td><%=result[i].timeConsumedMillis%></td>
-        <td><%=result[i].memoryConsumedBytes%></td>
+        <%var href = 'http://codeforces.com/problemset/submission/'+result[i].contestId+'/'+result[i].id%>
+        <%console.log(href)%>
+            <td><a onclick="parent.open('<%=`http://codeforces.com/problemset/submission/${result[i].contestId}/${result[i].id}`%>')"><%=result[i].id%></a></td>
+            <!-- <script>
+              var links = document.getElementsByClassName('dynamicLink');
 
-
+            links.href=href;
+            links.innerHTML = href.replace('http://',"");</script> -->
+           <td><%=result[i].problem.name%></td>
+            <td><%=result[i].verdict%></td>
+            <td><%=result[i].timeConsumedMillis%></td>
+            <td><%=result[i].memoryConsumedBytes%></td>
       </tr><%}%>
-    </table>
+    </tbody>
+   </table>
+   <button id='2' type='button' onclick="showNext('<%=handle%>')">Next</button>
+  </div>
+
+  <script type="text/javascript">
+  code=(contestID,id)=>{
+    axios.get("'http://codeforces.com/problemset/submission/'+contestID+'/'+id")
+    .then((response)=>{
+      console.log(response)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+  showNext=(handle)=>{
+    console.log('ghusa hai');
+
+
+     axios.post('http://localhost:4000/newpage',{
+       pagenumber: 2,
+       handle: handle
+     })
+     .then((response)=>{
+       console.log(response);
+       console.log('Next page pe gaya');
+     })
+     .catch((error)=>{
+       console.log('Nahi gaya');
+     })
+   }
+  </script>
+
   </body>
 </html>
